@@ -168,8 +168,8 @@ class CombatPredictor:
             logger.error(f"Training failed: {e}")
             return False
 
-    def predict_win_probability(self, my_stats: Dict, enemy_stats: Dict) -> float:
-     """
+def predict_win_probability(self, my_stats: Dict, enemy_stats: Dict) -> float:
+    """
     Predict win probability. Returns heuristic if not trained.
     """
     if not SKLEARN_AVAILABLE or not self.trained:
