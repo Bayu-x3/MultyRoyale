@@ -130,9 +130,17 @@ class APIClient:
             payload["name"] = name
         return self.post("/accounts", json=payload)["data"]
 
-    def get_account(self) -> Dict:
-        """Get current account info including active games."""
-        return self.get("/accounts/me")["data"]
+def get_account(self):
+    res = self.get("/accounts/me")
+
+    # DEBUG biar keliatan isi asli
+    print("ACCOUNT RESPONSE:", res)
+
+    if not res or "data" not in res:
+        logger.error(f"Invalid account response: {res}")
+        return {}
+
+    return res["data"]
 
     def set_wallet(self, wallet_address: str) -> Dict:
         """Register EVM wallet for rewards."""
