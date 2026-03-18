@@ -59,6 +59,17 @@ class APIClient:
                 time.sleep(retry_delay)
 
         raise last_error
+    
+    def register_agent_fast(self, game_id: str, agent_name: str):
+        """Fast register: no retry, cepat buat sniping"""
+        return self._request(
+        "POST",
+        f"/games/{game_id}/agents/register",
+        max_retries=1,
+        timeout=5,
+        retry_delay=0,
+        json={"name": agent_name}
+    ).get("data", {})
 
     def get(self, path: str, **kwargs):
         return self._request("GET", path, **kwargs)
